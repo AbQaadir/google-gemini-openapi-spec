@@ -1,0 +1,1148 @@
+# Generated with protoc-gen-openapi
+# https://github.com/google/gnostic/tree/master/cmd/protoc-gen-openapi
+
+openapi: 3.0.3
+info:
+    title: GenerativeService API
+    description: |-
+        API for using Large Models that generate multimodal content and have
+         additional capabilities beyond text generation.
+    version: 0.0.1
+servers:
+    - url: https://generativelanguage.googleapis.com
+paths:
+    /v1/dynamic/{dynamic}:generateContent:
+        post:
+            tags:
+                - GenerativeService
+            description: Generates a model response for a dynamic model.
+            operationId: GenerativeService_GenerateDynamicContent
+            parameters:
+                - name: dynamic
+                  in: path
+                  description: The dynamic id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/google.ai.generativelanguage.v1.GenerateContentRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.ai.generativelanguage.v1.GenerateContentResponse'
+    /v1/dynamic/{dynamic}:streamGenerateContent:
+        post:
+            tags:
+                - GenerativeService
+            description: Generates a streamed response from a dynamic model.
+            operationId: GenerativeService_StreamGenerateDynamicContent
+            parameters:
+                - name: dynamic
+                  in: path
+                  description: The dynamic id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/google.ai.generativelanguage.v1.GenerateContentRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.ai.generativelanguage.v1.GenerateContentResponse'
+    /v1/models/{model}:batchEmbedContents:
+        post:
+            tags:
+                - GenerativeService
+            description: |-
+                Generates multiple embedding vectors from the input `Content` which
+                 consists of a batch of strings represented as `EmbedContentRequest`
+                 objects.
+            operationId: GenerativeService_BatchEmbedContents
+            parameters:
+                - name: model
+                  in: path
+                  description: The model id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/google.ai.generativelanguage.v1.BatchEmbedContentsRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.ai.generativelanguage.v1.BatchEmbedContentsResponse'
+    /v1/models/{model}:countTokens:
+        post:
+            tags:
+                - GenerativeService
+            description: |-
+                Runs a model's tokenizer on input `Content` and returns the token count.
+                 Refer to the [tokens guide](https://ai.google.dev/gemini-api/docs/tokens)
+                 to learn more about tokens.
+            operationId: GenerativeService_CountTokens
+            parameters:
+                - name: model
+                  in: path
+                  description: The model id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/google.ai.generativelanguage.v1.CountTokensRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.ai.generativelanguage.v1.CountTokensResponse'
+    /v1/models/{model}:embedContent:
+        post:
+            tags:
+                - GenerativeService
+            description: |-
+                Generates a text embedding vector from the input `Content` using the
+                 specified [Gemini Embedding
+                 model](https://ai.google.dev/gemini-api/docs/models/gemini#text-embedding).
+            operationId: GenerativeService_EmbedContent
+            parameters:
+                - name: model
+                  in: path
+                  description: The model id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/google.ai.generativelanguage.v1.EmbedContentRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.ai.generativelanguage.v1.EmbedContentResponse'
+    /v1/models/{model}:generateContent:
+        post:
+            tags:
+                - GenerativeService
+            description: Generates a model response for a standard model.
+            operationId: GenerativeService_GenerateModelContent
+            parameters:
+                - name: model
+                  in: path
+                  description: The model id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/google.ai.generativelanguage.v1.GenerateContentRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.ai.generativelanguage.v1.GenerateContentResponse'
+    /v1/models/{model}:streamGenerateContent:
+        post:
+            tags:
+                - GenerativeService
+            description: Generates a streamed response from a standard model.
+            operationId: GenerativeService_StreamGenerateModelContent
+            parameters:
+                - name: model
+                  in: path
+                  description: The model id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/google.ai.generativelanguage.v1.GenerateContentRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.ai.generativelanguage.v1.GenerateContentResponse'
+    /v1/tunedModels/{tunedModel}:generateContent:
+        post:
+            tags:
+                - GenerativeService
+            description: Generates a model response for a tuned model.
+            operationId: GenerativeService_GenerateTunedModelContent
+            parameters:
+                - name: tunedModel
+                  in: path
+                  description: The tunedModel id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/google.ai.generativelanguage.v1.GenerateContentRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.ai.generativelanguage.v1.GenerateContentResponse'
+    /v1/tunedModels/{tunedModel}:streamGenerateContent:
+        post:
+            tags:
+                - GenerativeService
+            description: Generates a streamed response from a tuned model.
+            operationId: GenerativeService_StreamGenerateTunedModelContent
+            parameters:
+                - name: tunedModel
+                  in: path
+                  description: The tunedModel id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/google.ai.generativelanguage.v1.GenerateContentRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.ai.generativelanguage.v1.GenerateContentResponse'
+components:
+    schemas:
+        google.ai.generativelanguage.v1.BatchEmbedContentsRequest:
+            required:
+                - model
+                - requests
+            type: object
+            properties:
+                model:
+                    type: string
+                    description: |-
+                        Required. The model's resource name. This serves as an ID for the Model to
+                         use.
+
+                         This name should match a model name returned by the `ListModels` method.
+
+                         Format: `models/{model}`
+                requests:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.ai.generativelanguage.v1.EmbedContentRequest'
+                    description: |-
+                        Required. Embed requests for the batch. The model in each of these requests
+                         must match the model specified `BatchEmbedContentsRequest.model`.
+            description: Batch request to get embeddings from the model for a list of prompts.
+        google.ai.generativelanguage.v1.BatchEmbedContentsResponse:
+            type: object
+            properties:
+                embeddings:
+                    readOnly: true
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.ai.generativelanguage.v1.ContentEmbedding'
+                    description: |-
+                        Output only. The embeddings for each request, in the same order as provided
+                         in the batch request.
+            description: The response to a `BatchEmbedContentsRequest`.
+        google.ai.generativelanguage.v1.Blob:
+            type: object
+            properties:
+                mimeType:
+                    type: string
+                    description: |-
+                        The IANA standard MIME type of the source data.
+                         Examples:
+                           - image/png
+                           - image/jpeg
+                         If an unsupported MIME type is provided, an error will be returned. For a
+                         complete list of supported types, see [Supported file
+                         formats](https://ai.google.dev/gemini-api/docs/prompting_with_media#supported_file_formats).
+                data:
+                    type: string
+                    description: Raw bytes for media formats.
+                    format: bytes
+            description: |-
+                Raw media bytes.
+
+                 Text should not be sent as raw bytes, use the 'text' field.
+        google.ai.generativelanguage.v1.Candidate:
+            type: object
+            properties:
+                index:
+                    readOnly: true
+                    type: integer
+                    description: Output only. Index of the candidate in the list of response candidates.
+                    format: int32
+                content:
+                    readOnly: true
+                    allOf:
+                        - $ref: '#/components/schemas/google.ai.generativelanguage.v1.Content'
+                    description: Output only. Generated content returned from the model.
+                finishReason:
+                    readOnly: true
+                    type: integer
+                    description: |-
+                        Optional. Output only. The reason why the model stopped generating tokens.
+
+                         If empty, the model has not stopped generating tokens.
+                    format: enum
+                safetyRatings:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.ai.generativelanguage.v1.SafetyRating'
+                    description: |-
+                        List of ratings for the safety of a response candidate.
+
+                         There is at most one rating per category.
+                citationMetadata:
+                    readOnly: true
+                    allOf:
+                        - $ref: '#/components/schemas/google.ai.generativelanguage.v1.CitationMetadata'
+                    description: |-
+                        Output only. Citation information for model-generated candidate.
+
+                         This field may be populated with recitation information for any text
+                         included in the `content`. These are passages that are "recited" from
+                         copyrighted material in the foundational LLM's training data.
+                tokenCount:
+                    readOnly: true
+                    type: integer
+                    description: Output only. Token count for this candidate.
+                    format: int32
+                groundingMetadata:
+                    readOnly: true
+                    allOf:
+                        - $ref: '#/components/schemas/google.ai.generativelanguage.v1.GroundingMetadata'
+                    description: |-
+                        Output only. Grounding metadata for the candidate.
+
+                         This field is populated for `GenerateContent` calls.
+                avgLogprobs:
+                    readOnly: true
+                    type: number
+                    description: Output only. Average log probability score of the candidate.
+                    format: double
+                logprobsResult:
+                    readOnly: true
+                    allOf:
+                        - $ref: '#/components/schemas/google.ai.generativelanguage.v1.LogprobsResult'
+                    description: Output only. Log-likelihood scores for the response tokens and top tokens
+                urlContextMetadata:
+                    readOnly: true
+                    allOf:
+                        - $ref: '#/components/schemas/google.ai.generativelanguage.v1.UrlContextMetadata'
+                    description: Output only. Metadata related to url context retrieval tool.
+            description: A response candidate generated from the model.
+        google.ai.generativelanguage.v1.CitationMetadata:
+            type: object
+            properties:
+                citationSources:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.ai.generativelanguage.v1.CitationSource'
+                    description: Citations to sources for a specific response.
+            description: A collection of source attributions for a piece of content.
+        google.ai.generativelanguage.v1.CitationSource:
+            type: object
+            properties:
+                startIndex:
+                    type: integer
+                    description: |-
+                        Optional. Start of segment of the response that is attributed to this
+                         source.
+
+                         Index indicates the start of the segment, measured in bytes.
+                    format: int32
+                endIndex:
+                    type: integer
+                    description: Optional. End of the attributed segment, exclusive.
+                    format: int32
+                uri:
+                    type: string
+                    description: Optional. URI that is attributed as a source for a portion of the text.
+                license:
+                    type: string
+                    description: |-
+                        Optional. License for the GitHub project that is attributed as a source for
+                         segment.
+
+                         License info is required for code citations.
+            description: A citation to a source for a portion of a specific response.
+        google.ai.generativelanguage.v1.Content:
+            type: object
+            properties:
+                parts:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.ai.generativelanguage.v1.Part'
+                    description: |-
+                        Ordered `Parts` that constitute a single message. Parts may have different
+                         MIME types.
+                role:
+                    type: string
+                    description: |-
+                        Optional. The producer of the content. Must be either 'user' or 'model'.
+
+                         Useful to set for multi-turn conversations, otherwise can be left blank
+                         or unset.
+            description: |-
+                The base structured datatype containing multi-part content of a message.
+
+                 A `Content` includes a `role` field designating the producer of the `Content`
+                 and a `parts` field containing multi-part data that contains the content of
+                 the message turn.
+        google.ai.generativelanguage.v1.ContentEmbedding:
+            type: object
+            properties:
+                values:
+                    type: array
+                    items:
+                        type: number
+                        format: float
+                    description: The embedding values.
+            description: A list of floats representing an embedding.
+        google.ai.generativelanguage.v1.CountTokensRequest:
+            required:
+                - model
+            type: object
+            properties:
+                model:
+                    type: string
+                    description: |-
+                        Required. The model's resource name. This serves as an ID for the Model to
+                         use.
+
+                         This name should match a model name returned by the `ListModels` method.
+
+                         Format: `models/{model}`
+                contents:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.ai.generativelanguage.v1.Content'
+                    description: |-
+                        Optional. The input given to the model as a prompt. This field is ignored
+                         when `generate_content_request` is set.
+                generateContentRequest:
+                    allOf:
+                        - $ref: '#/components/schemas/google.ai.generativelanguage.v1.GenerateContentRequest'
+                    description: |-
+                        Optional. The overall input given to the `Model`. This includes the prompt
+                         as well as other model steering information like [system
+                         instructions](https://ai.google.dev/gemini-api/docs/system-instructions),
+                         and/or function declarations for [function
+                         calling](https://ai.google.dev/gemini-api/docs/function-calling).
+                         `Model`s/`Content`s and `generate_content_request`s are mutually
+                         exclusive. You can either send `Model` + `Content`s or a
+                         `generate_content_request`, but never both.
+            description: |-
+                Counts the number of tokens in the `prompt` sent to a model.
+
+                 Models may tokenize text differently, so each model may return a different
+                 `token_count`.
+        google.ai.generativelanguage.v1.CountTokensResponse:
+            type: object
+            properties:
+                totalTokens:
+                    type: integer
+                    description: |-
+                        The number of tokens that the `Model` tokenizes the `prompt` into. Always
+                         non-negative.
+                    format: int32
+                promptTokensDetails:
+                    readOnly: true
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.ai.generativelanguage.v1.ModalityTokenCount'
+                    description: Output only. List of modalities that were processed in the request input.
+                cacheTokensDetails:
+                    readOnly: true
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.ai.generativelanguage.v1.ModalityTokenCount'
+                    description: Output only. List of modalities that were processed in the cached content.
+            description: |-
+                A response from `CountTokens`.
+
+                 It returns the model's `token_count` for the `prompt`.
+        google.ai.generativelanguage.v1.EmbedContentRequest:
+            required:
+                - model
+                - content
+            type: object
+            properties:
+                model:
+                    type: string
+                    description: |-
+                        Required. The model's resource name. This serves as an ID for the Model to
+                         use.
+
+                         This name should match a model name returned by the `ListModels` method.
+
+                         Format: `models/{model}`
+                content:
+                    allOf:
+                        - $ref: '#/components/schemas/google.ai.generativelanguage.v1.Content'
+                    description: |-
+                        Required. The content to embed. Only the `parts.text` fields will be
+                         counted.
+                taskType:
+                    type: integer
+                    description: |-
+                        Optional. Optional task type for which the embeddings will be used. Not
+                         supported on earlier models (`models/embedding-001`).
+                    format: enum
+                title:
+                    type: string
+                    description: |-
+                        Optional. An optional title for the text. Only applicable when TaskType is
+                         `RETRIEVAL_DOCUMENT`.
+
+                         Note: Specifying a `title` for `RETRIEVAL_DOCUMENT` provides better quality
+                         embeddings for retrieval.
+                outputDimensionality:
+                    type: integer
+                    description: |-
+                        Optional. Optional reduced dimension for the output embedding. If set,
+                         excessive values in the output embedding are truncated from the end.
+                         Supported by newer models since 2024 only. You cannot set this value if
+                         using the earlier model (`models/embedding-001`).
+                    format: int32
+            description: Request containing the `Content` for the model to embed.
+        google.ai.generativelanguage.v1.EmbedContentResponse:
+            type: object
+            properties:
+                embedding:
+                    readOnly: true
+                    allOf:
+                        - $ref: '#/components/schemas/google.ai.generativelanguage.v1.ContentEmbedding'
+                    description: Output only. The embedding generated from the input content.
+            description: The response to an `EmbedContentRequest`.
+        google.ai.generativelanguage.v1.GenerateContentRequest:
+            required:
+                - model
+                - contents
+            type: object
+            properties:
+                model:
+                    type: string
+                    description: |-
+                        Required. The name of the `Model` to use for generating the completion.
+
+                         Format: `models/{model}`.
+                contents:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.ai.generativelanguage.v1.Content'
+                    description: |-
+                        Required. The content of the current conversation with the model.
+
+                         For single-turn queries, this is a single instance. For multi-turn queries
+                         like [chat](https://ai.google.dev/gemini-api/docs/text-generation#chat),
+                         this is a repeated field that contains the conversation history and the
+                         latest request.
+                safetySettings:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.ai.generativelanguage.v1.SafetySetting'
+                    description: |-
+                        Optional. A list of unique `SafetySetting` instances for blocking unsafe
+                         content.
+
+                         This will be enforced on the `GenerateContentRequest.contents` and
+                         `GenerateContentResponse.candidates`. There should not be more than one
+                         setting for each `SafetyCategory` type. The API will block any contents and
+                         responses that fail to meet the thresholds set by these settings. This list
+                         overrides the default settings for each `SafetyCategory` specified in the
+                         safety_settings. If there is no `SafetySetting` for a given
+                         `SafetyCategory` provided in the list, the API will use the default safety
+                         setting for that category. Harm categories HARM_CATEGORY_HATE_SPEECH,
+                         HARM_CATEGORY_SEXUALLY_EXPLICIT, HARM_CATEGORY_DANGEROUS_CONTENT,
+                         HARM_CATEGORY_HARASSMENT, HARM_CATEGORY_CIVIC_INTEGRITY are supported.
+                         Refer to the [guide](https://ai.google.dev/gemini-api/docs/safety-settings)
+                         for detailed information on available safety settings. Also refer to the
+                         [Safety guidance](https://ai.google.dev/gemini-api/docs/safety-guidance) to
+                         learn how to incorporate safety considerations in your AI applications.
+                generationConfig:
+                    allOf:
+                        - $ref: '#/components/schemas/google.ai.generativelanguage.v1.GenerationConfig'
+                    description: Optional. Configuration options for model generation and outputs.
+            description: Request to generate a completion from the model.
+        google.ai.generativelanguage.v1.GenerateContentResponse:
+            type: object
+            properties:
+                candidates:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.ai.generativelanguage.v1.Candidate'
+                    description: Candidate responses from the model.
+                promptFeedback:
+                    allOf:
+                        - $ref: '#/components/schemas/google.ai.generativelanguage.v1.GenerateContentResponse_PromptFeedback'
+                    description: Returns the prompt's feedback related to the content filters.
+                usageMetadata:
+                    readOnly: true
+                    allOf:
+                        - $ref: '#/components/schemas/google.ai.generativelanguage.v1.GenerateContentResponse_UsageMetadata'
+                    description: Output only. Metadata on the generation requests' token usage.
+                modelVersion:
+                    readOnly: true
+                    type: string
+                    description: Output only. The model version used to generate the response.
+                responseId:
+                    readOnly: true
+                    type: string
+                    description: Output only. response_id is used to identify each response.
+            description: |-
+                Response from the model supporting multiple candidate responses.
+
+                 Safety ratings and content filtering are reported for both
+                 prompt in `GenerateContentResponse.prompt_feedback` and for each candidate
+                 in `finish_reason` and in `safety_ratings`. The API:
+                  - Returns either all requested candidates or none of them
+                  - Returns no candidates at all only if there was something wrong with the
+                    prompt (check `prompt_feedback`)
+                  - Reports feedback on each candidate in `finish_reason` and
+                    `safety_ratings`.
+        google.ai.generativelanguage.v1.GenerateContentResponse_PromptFeedback:
+            type: object
+            properties:
+                blockReason:
+                    type: integer
+                    description: |-
+                        Optional. If set, the prompt was blocked and no candidates are returned.
+                         Rephrase the prompt.
+                    format: enum
+                safetyRatings:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.ai.generativelanguage.v1.SafetyRating'
+                    description: |-
+                        Ratings for safety of the prompt.
+                         There is at most one rating per category.
+            description: |-
+                A set of the feedback metadata the prompt specified in
+                 `GenerateContentRequest.content`.
+        google.ai.generativelanguage.v1.GenerateContentResponse_UsageMetadata:
+            type: object
+            properties:
+                promptTokenCount:
+                    type: integer
+                    description: |-
+                        Number of tokens in the prompt. When `cached_content` is set, this is
+                         still the total effective prompt size meaning this includes the number of
+                         tokens in the cached content.
+                    format: int32
+                candidatesTokenCount:
+                    type: integer
+                    description: Total number of tokens across all the generated response candidates.
+                    format: int32
+                toolUsePromptTokenCount:
+                    readOnly: true
+                    type: integer
+                    description: Output only. Number of tokens present in tool-use prompt(s).
+                    format: int32
+                thoughtsTokenCount:
+                    readOnly: true
+                    type: integer
+                    description: Output only. Number of tokens of thoughts for thinking models.
+                    format: int32
+                totalTokenCount:
+                    type: integer
+                    description: |-
+                        Total token count for the generation request (prompt + response
+                         candidates).
+                    format: int32
+                promptTokensDetails:
+                    readOnly: true
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.ai.generativelanguage.v1.ModalityTokenCount'
+                    description: Output only. List of modalities that were processed in the request input.
+                cacheTokensDetails:
+                    readOnly: true
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.ai.generativelanguage.v1.ModalityTokenCount'
+                    description: |-
+                        Output only. List of modalities of the cached content in the request
+                         input.
+                candidatesTokensDetails:
+                    readOnly: true
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.ai.generativelanguage.v1.ModalityTokenCount'
+                    description: Output only. List of modalities that were returned in the response.
+                toolUsePromptTokensDetails:
+                    readOnly: true
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.ai.generativelanguage.v1.ModalityTokenCount'
+                    description: |-
+                        Output only. List of modalities that were processed for tool-use request
+                         inputs.
+            description: Metadata on the generation request's token usage.
+        google.ai.generativelanguage.v1.GenerationConfig:
+            type: object
+            properties:
+                candidateCount:
+                    type: integer
+                    description: |-
+                        Optional. Number of generated responses to return. If unset, this will
+                         default to 1. Please note that this doesn't work for previous generation
+                         models (Gemini 1.0 family)
+                    format: int32
+                stopSequences:
+                    type: array
+                    items:
+                        type: string
+                    description: |-
+                        Optional. The set of character sequences (up to 5) that will stop output
+                         generation. If specified, the API will stop at the first appearance of a
+                         `stop_sequence`. The stop sequence will not be included as part of the
+                         response.
+                maxOutputTokens:
+                    type: integer
+                    description: |-
+                        Optional. The maximum number of tokens to include in a response candidate.
+
+                         Note: The default value varies by model, see the `Model.output_token_limit`
+                         attribute of the `Model` returned from the `getModel` function.
+                    format: int32
+                temperature:
+                    type: number
+                    description: |-
+                        Optional. Controls the randomness of the output.
+
+                         Note: The default value varies by model, see the `Model.temperature`
+                         attribute of the `Model` returned from the `getModel` function.
+
+                         Values can range from [0.0, 2.0].
+                    format: float
+                topP:
+                    type: number
+                    description: |-
+                        Optional. The maximum cumulative probability of tokens to consider when
+                         sampling.
+
+                         The model uses combined Top-k and Top-p (nucleus) sampling.
+
+                         Tokens are sorted based on their assigned probabilities so that only the
+                         most likely tokens are considered. Top-k sampling directly limits the
+                         maximum number of tokens to consider, while Nucleus sampling limits the
+                         number of tokens based on the cumulative probability.
+
+                         Note: The default value varies by `Model` and is specified by
+                         the`Model.top_p` attribute returned from the `getModel` function. An empty
+                         `top_k` attribute indicates that the model doesn't apply top-k sampling
+                         and doesn't allow setting `top_k` on requests.
+                    format: float
+                topK:
+                    type: integer
+                    description: |-
+                        Optional. The maximum number of tokens to consider when sampling.
+
+                         Gemini models use Top-p (nucleus) sampling or a combination of Top-k and
+                         nucleus sampling. Top-k sampling considers the set of `top_k` most probable
+                         tokens. Models running with nucleus sampling don't allow top_k setting.
+
+                         Note: The default value varies by `Model` and is specified by
+                         the`Model.top_p` attribute returned from the `getModel` function. An empty
+                         `top_k` attribute indicates that the model doesn't apply top-k sampling
+                         and doesn't allow setting `top_k` on requests.
+                    format: int32
+                seed:
+                    type: integer
+                    description: |-
+                        Optional. Seed used in decoding. If not set, the request uses a randomly
+                         generated seed.
+                    format: int32
+                presencePenalty:
+                    type: number
+                    description: |-
+                        Optional. Presence penalty applied to the next token's logprobs if the
+                         token has already been seen in the response.
+
+                         This penalty is binary on/off and not dependant on the number of times the
+                         token is used (after the first). Use
+                         [frequency_penalty][google.ai.generativelanguage.v1.GenerationConfig.frequency_penalty]
+                         for a penalty that increases with each use.
+
+                         A positive penalty will discourage the use of tokens that have already
+                         been used in the response, increasing the vocabulary.
+
+                         A negative penalty will encourage the use of tokens that have already been
+                         used in the response, decreasing the vocabulary.
+                    format: float
+                frequencyPenalty:
+                    type: number
+                    description: |-
+                        Optional. Frequency penalty applied to the next token's logprobs,
+                         multiplied by the number of times each token has been seen in the respponse
+                         so far.
+
+                         A positive penalty will discourage the use of tokens that have already
+                         been used, proportional to the number of times the token has been used:
+                         The more a token is used, the more difficult it is for the model to use
+                         that token again increasing the vocabulary of responses.
+
+                         Caution: A _negative_ penalty will encourage the model to reuse tokens
+                         proportional to the number of times the token has been used. Small
+                         negative values will reduce the vocabulary of a response. Larger negative
+                         values will cause the model to start repeating a common token  until it
+                         hits the
+                         [max_output_tokens][google.ai.generativelanguage.v1.GenerationConfig.max_output_tokens]
+                         limit.
+                    format: float
+                responseLogprobs:
+                    type: boolean
+                    description: Optional. If true, export the logprobs results in response.
+                logprobs:
+                    type: integer
+                    description: |-
+                        Optional. Only valid if
+                         [response_logprobs=True][google.ai.generativelanguage.v1.GenerationConfig.response_logprobs].
+                         This sets the number of top logprobs to return at each decoding step in the
+                         [Candidate.logprobs_result][google.ai.generativelanguage.v1.Candidate.logprobs_result].
+                    format: int32
+                enableEnhancedCivicAnswers:
+                    type: boolean
+                    description: |-
+                        Optional. Enables enhanced civic answers. It may not be available for all
+                         models.
+            description: |-
+                Configuration options for model generation and outputs. Not all parameters
+                 are configurable for every model.
+        google.ai.generativelanguage.v1.GroundingChunk:
+            type: object
+            properties:
+                web:
+                    allOf:
+                        - $ref: '#/components/schemas/google.ai.generativelanguage.v1.GroundingChunk_Web'
+                    description: Grounding chunk from the web.
+            description: Grounding chunk.
+        google.ai.generativelanguage.v1.GroundingChunk_Web:
+            type: object
+            properties:
+                uri:
+                    type: string
+                    description: URI reference of the chunk.
+                title:
+                    type: string
+                    description: Title of the chunk.
+            description: Chunk from the web.
+        google.ai.generativelanguage.v1.GroundingMetadata:
+            type: object
+            properties:
+                searchEntryPoint:
+                    allOf:
+                        - $ref: '#/components/schemas/google.ai.generativelanguage.v1.SearchEntryPoint'
+                    description: Optional. Google search entry for the following-up web searches.
+                groundingChunks:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.ai.generativelanguage.v1.GroundingChunk'
+                    description: List of supporting references retrieved from specified grounding source.
+                groundingSupports:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.ai.generativelanguage.v1.GroundingSupport'
+                    description: List of grounding support.
+                retrievalMetadata:
+                    allOf:
+                        - $ref: '#/components/schemas/google.ai.generativelanguage.v1.RetrievalMetadata'
+                    description: Metadata related to retrieval in the grounding flow.
+                webSearchQueries:
+                    type: array
+                    items:
+                        type: string
+                    description: Web search queries for the following-up web search.
+            description: Metadata returned to client when grounding is enabled.
+        google.ai.generativelanguage.v1.GroundingSupport:
+            type: object
+            properties:
+                segment:
+                    allOf:
+                        - $ref: '#/components/schemas/google.ai.generativelanguage.v1.Segment'
+                    description: Segment of the content this support belongs to.
+                groundingChunkIndices:
+                    type: array
+                    items:
+                        type: integer
+                        format: int32
+                    description: |-
+                        A list of indices (into 'grounding_chunk') specifying the
+                         citations associated with the claim. For instance [1,3,4] means
+                         that grounding_chunk[1], grounding_chunk[3],
+                         grounding_chunk[4] are the retrieved content attributed to the claim.
+                confidenceScores:
+                    type: array
+                    items:
+                        type: number
+                        format: float
+                    description: |-
+                        Confidence score of the support references. Ranges from 0 to 1. 1 is the
+                         most confident. This list must have the same size as the
+                         grounding_chunk_indices.
+            description: Grounding support.
+        google.ai.generativelanguage.v1.LogprobsResult:
+            type: object
+            properties:
+                topCandidates:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.ai.generativelanguage.v1.LogprobsResult_TopCandidates'
+                    description: Length = total number of decoding steps.
+                chosenCandidates:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.ai.generativelanguage.v1.LogprobsResult_Candidate'
+                    description: |-
+                        Length = total number of decoding steps.
+                         The chosen candidates may or may not be in top_candidates.
+            description: Logprobs Result
+        google.ai.generativelanguage.v1.LogprobsResult_Candidate:
+            type: object
+            properties:
+                token:
+                    type: string
+                    description: The candidate’s token string value.
+                tokenId:
+                    type: integer
+                    description: The candidate’s token id value.
+                    format: int32
+                logProbability:
+                    type: number
+                    description: The candidate's log probability.
+                    format: float
+            description: Candidate for the logprobs token and score.
+        google.ai.generativelanguage.v1.LogprobsResult_TopCandidates:
+            type: object
+            properties:
+                candidates:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.ai.generativelanguage.v1.LogprobsResult_Candidate'
+                    description: Sorted by log probability in descending order.
+            description: Candidates with top log probabilities at each decoding step.
+        google.ai.generativelanguage.v1.ModalityTokenCount:
+            type: object
+            properties:
+                modality:
+                    type: integer
+                    description: The modality associated with this token count.
+                    format: enum
+                tokenCount:
+                    type: integer
+                    description: Number of tokens.
+                    format: int32
+            description: Represents token counting info for a single modality.
+        google.ai.generativelanguage.v1.Part:
+            type: object
+            properties:
+                text:
+                    type: string
+                    description: Inline text.
+                inlineData:
+                    allOf:
+                        - $ref: '#/components/schemas/google.ai.generativelanguage.v1.Blob'
+                    description: Inline media bytes.
+                videoMetadata:
+                    allOf:
+                        - $ref: '#/components/schemas/google.ai.generativelanguage.v1.VideoMetadata'
+                    description: |-
+                        Optional. Video metadata. The metadata should only be specified while the
+                         video data is presented in inline_data or file_data.
+            description: |-
+                A datatype containing media that is part of a multi-part `Content` message.
+
+                 A `Part` consists of data which has an associated datatype. A `Part` can only
+                 contain one of the accepted types in `Part.data`.
+
+                 A `Part` must have a fixed IANA MIME type identifying the type and subtype
+                 of the media if the `inline_data` field is filled with raw bytes.
+        google.ai.generativelanguage.v1.RetrievalMetadata:
+            type: object
+            properties:
+                googleSearchDynamicRetrievalScore:
+                    type: number
+                    description: |-
+                        Optional. Score indicating how likely information from google search could
+                         help answer the prompt. The score is in the range [0, 1], where 0 is the
+                         least likely and 1 is the most likely. This score is only populated when
+                         google search grounding and dynamic retrieval is enabled. It will be
+                         compared to the threshold to determine whether to trigger google search.
+                    format: float
+            description: Metadata related to retrieval in the grounding flow.
+        google.ai.generativelanguage.v1.SafetyRating:
+            required:
+                - category
+                - probability
+            type: object
+            properties:
+                category:
+                    type: integer
+                    description: Required. The category for this rating.
+                    format: enum
+                probability:
+                    type: integer
+                    description: Required. The probability of harm for this content.
+                    format: enum
+                blocked:
+                    type: boolean
+                    description: Was this content blocked because of this rating?
+            description: |-
+                Safety rating for a piece of content.
+
+                 The safety rating contains the category of harm and the
+                 harm probability level in that category for a piece of content.
+                 Content is classified for safety across a number of
+                 harm categories and the probability of the harm classification is included
+                 here.
+        google.ai.generativelanguage.v1.SafetySetting:
+            required:
+                - category
+                - threshold
+            type: object
+            properties:
+                category:
+                    type: integer
+                    description: Required. The category for this setting.
+                    format: enum
+                threshold:
+                    type: integer
+                    description: Required. Controls the probability threshold at which harm is blocked.
+                    format: enum
+            description: |-
+                Safety setting, affecting the safety-blocking behavior.
+
+                 Passing a safety setting for a category changes the allowed probability that
+                 content is blocked.
+        google.ai.generativelanguage.v1.SearchEntryPoint:
+            type: object
+            properties:
+                renderedContent:
+                    type: string
+                    description: |-
+                        Optional. Web content snippet that can be embedded in a web page or an app
+                         webview.
+                sdkBlob:
+                    type: string
+                    description: |-
+                        Optional. Base64 encoded JSON representing array of <search term, search
+                         url> tuple.
+                    format: bytes
+            description: Google search entry point.
+        google.ai.generativelanguage.v1.Segment:
+            type: object
+            properties:
+                partIndex:
+                    readOnly: true
+                    type: integer
+                    description: Output only. The index of a Part object within its parent Content object.
+                    format: int32
+                startIndex:
+                    readOnly: true
+                    type: integer
+                    description: |-
+                        Output only. Start index in the given Part, measured in bytes. Offset from
+                         the start of the Part, inclusive, starting at zero.
+                    format: int32
+                endIndex:
+                    readOnly: true
+                    type: integer
+                    description: |-
+                        Output only. End index in the given Part, measured in bytes. Offset from
+                         the start of the Part, exclusive, starting at zero.
+                    format: int32
+                text:
+                    readOnly: true
+                    type: string
+                    description: Output only. The text corresponding to the segment from the response.
+            description: Segment of the content.
+        google.ai.generativelanguage.v1.UrlContextMetadata:
+            type: object
+            properties:
+                urlMetadata:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.ai.generativelanguage.v1.UrlMetadata'
+                    description: List of url context.
+            description: Metadata related to url context retrieval tool.
+        google.ai.generativelanguage.v1.UrlMetadata:
+            type: object
+            properties:
+                retrievedUrl:
+                    type: string
+                    description: Retrieved url by the tool.
+                urlRetrievalStatus:
+                    type: integer
+                    description: Status of the url retrieval.
+                    format: enum
+            description: Context of the a single url retrieval.
+        google.ai.generativelanguage.v1.VideoMetadata:
+            type: object
+            properties:
+                startOffset:
+                    pattern: ^-?(?:0|[1-9][0-9]{0,11})(?:\.[0-9]{1,9})?s$
+                    type: string
+                    description: Optional. The start offset of the video.
+                endOffset:
+                    pattern: ^-?(?:0|[1-9][0-9]{0,11})(?:\.[0-9]{1,9})?s$
+                    type: string
+                    description: Optional. The end offset of the video.
+                fps:
+                    type: number
+                    description: |-
+                        Optional. The frame rate of the video sent to the model. If not specified,
+                         the default value will be 1.0. The fps range is (0.0, 24.0].
+                    format: double
+            description: Metadata describes the input video content.
+tags:
+    - name: GenerativeService
