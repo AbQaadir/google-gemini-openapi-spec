@@ -1,17 +1,19 @@
-# Generated with protoc-gen-openapi
-# https://github.com/google/gnostic/tree/master/cmd/protoc-gen-openapi
-
 openapi: 3.0.3
+
 info:
     title: GenerativeService API
     description: |-
         API for using Large Models that generate multimodal content and have
          additional capabilities beyond text generation.
-    version: 0.0.1
+    version: "v1beta"
+
+security:
+  - ApiKeyAuth: []
+
 servers:
     - url: https://generativelanguage.googleapis.com
 paths:
-    /v1/dynamic/{dynamic}:generateContent:
+    /v1beta/dynamic/{dynamic}:generateContent:
         post:
             tags:
                 - GenerativeService
@@ -28,7 +30,7 @@ paths:
                 content:
                     application/json:
                         schema:
-                            $ref: '#/components/schemas/google.ai.generativelanguage.v1.GenerateContentRequest'
+                            $ref: '#/components/schemas/GenerateContentRequest'
                 required: true
             responses:
                 "200":
@@ -36,8 +38,14 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/google.ai.generativelanguage.v1.GenerateContentResponse'
-    /v1/dynamic/{dynamic}:streamGenerateContent:
+                                $ref: '#/components/schemas/GenerateContentResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /v1beta/dynamic/{dynamic}:streamGenerateContent:
         post:
             tags:
                 - GenerativeService
@@ -54,7 +62,7 @@ paths:
                 content:
                     application/json:
                         schema:
-                            $ref: '#/components/schemas/google.ai.generativelanguage.v1.GenerateContentRequest'
+                            $ref: '#/components/schemas/GenerateContentRequest'
                 required: true
             responses:
                 "200":
@@ -62,8 +70,14 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/google.ai.generativelanguage.v1.GenerateContentResponse'
-    /v1/models/{model}:batchEmbedContents:
+                                $ref: '#/components/schemas/GenerateContentResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /v1beta/models/{model}:batchEmbedContents:
         post:
             tags:
                 - GenerativeService
@@ -83,7 +97,7 @@ paths:
                 content:
                     application/json:
                         schema:
-                            $ref: '#/components/schemas/google.ai.generativelanguage.v1.BatchEmbedContentsRequest'
+                            $ref: '#/components/schemas/BatchEmbedContentsRequest'
                 required: true
             responses:
                 "200":
@@ -91,8 +105,14 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/google.ai.generativelanguage.v1.BatchEmbedContentsResponse'
-    /v1/models/{model}:countTokens:
+                                $ref: '#/components/schemas/BatchEmbedContentsResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /v1beta/models/{model}:countTokens:
         post:
             tags:
                 - GenerativeService
@@ -112,7 +132,7 @@ paths:
                 content:
                     application/json:
                         schema:
-                            $ref: '#/components/schemas/google.ai.generativelanguage.v1.CountTokensRequest'
+                            $ref: '#/components/schemas/CountTokensRequest'
                 required: true
             responses:
                 "200":
@@ -120,8 +140,14 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/google.ai.generativelanguage.v1.CountTokensResponse'
-    /v1/models/{model}:embedContent:
+                                $ref: '#/components/schemas/CountTokensResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /v1beta/models/{model}:embedContent:
         post:
             tags:
                 - GenerativeService
@@ -141,7 +167,7 @@ paths:
                 content:
                     application/json:
                         schema:
-                            $ref: '#/components/schemas/google.ai.generativelanguage.v1.EmbedContentRequest'
+                            $ref: '#/components/schemas/EmbedContentRequest'
                 required: true
             responses:
                 "200":
@@ -149,8 +175,48 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/google.ai.generativelanguage.v1.EmbedContentResponse'
-    /v1/models/{model}:generateContent:
+                                $ref: '#/components/schemas/EmbedContentResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /v1beta/models/{model}:generateAnswer:
+        post:
+            tags:
+                - GenerativeService
+            description: |-
+                Generates a grounded answer from the model given an input
+                 `GenerateAnswerRequest`.
+            operationId: GenerativeService_GenerateAnswer
+            parameters:
+                - name: model
+                  in: path
+                  description: The model id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/GenerateAnswerRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/GenerateAnswerResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /v1beta/models/{model}:generateContent:
         post:
             tags:
                 - GenerativeService
@@ -167,7 +233,7 @@ paths:
                 content:
                     application/json:
                         schema:
-                            $ref: '#/components/schemas/google.ai.generativelanguage.v1.GenerateContentRequest'
+                            $ref: '#/components/schemas/GenerateContentRequest'
                 required: true
             responses:
                 "200":
@@ -175,8 +241,14 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/google.ai.generativelanguage.v1.GenerateContentResponse'
-    /v1/models/{model}:streamGenerateContent:
+                                $ref: '#/components/schemas/GenerateContentResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /v1beta/models/{model}:streamGenerateContent:
         post:
             tags:
                 - GenerativeService
@@ -193,7 +265,7 @@ paths:
                 content:
                     application/json:
                         schema:
-                            $ref: '#/components/schemas/google.ai.generativelanguage.v1.GenerateContentRequest'
+                            $ref: '#/components/schemas/GenerateContentRequest'
                 required: true
             responses:
                 "200":
@@ -201,8 +273,14 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/google.ai.generativelanguage.v1.GenerateContentResponse'
-    /v1/tunedModels/{tunedModel}:generateContent:
+                                $ref: '#/components/schemas/GenerateContentResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /v1beta/tunedModels/{tunedModel}:generateContent:
         post:
             tags:
                 - GenerativeService
@@ -219,7 +297,7 @@ paths:
                 content:
                     application/json:
                         schema:
-                            $ref: '#/components/schemas/google.ai.generativelanguage.v1.GenerateContentRequest'
+                            $ref: '#/components/schemas/GenerateContentRequest'
                 required: true
             responses:
                 "200":
@@ -227,8 +305,14 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/google.ai.generativelanguage.v1.GenerateContentResponse'
-    /v1/tunedModels/{tunedModel}:streamGenerateContent:
+                                $ref: '#/components/schemas/GenerateContentResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /v1beta/tunedModels/{tunedModel}:streamGenerateContent:
         post:
             tags:
                 - GenerativeService
@@ -245,7 +329,7 @@ paths:
                 content:
                     application/json:
                         schema:
-                            $ref: '#/components/schemas/google.ai.generativelanguage.v1.GenerateContentRequest'
+                            $ref: '#/components/schemas/GenerateContentRequest'
                 required: true
             responses:
                 "200":
@@ -253,10 +337,64 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/google.ai.generativelanguage.v1.GenerateContentResponse'
+                                $ref: '#/components/schemas/GenerateContentResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
 components:
     schemas:
-        google.ai.generativelanguage.v1.BatchEmbedContentsRequest:
+        AttributionSourceId:
+            type: object
+            properties:
+                groundingPassage:
+                    allOf:
+                        - $ref: '#/components/schemas/AttributionSourceId_GroundingPassageId'
+                    description: Identifier for an inline passage.
+                semanticRetrieverChunk:
+                    allOf:
+                        - $ref: '#/components/schemas/AttributionSourceId_SemanticRetrieverChunk'
+                    description: Identifier for a `Chunk` fetched via Semantic Retriever.
+            description: Identifier for the source contributing to this attribution.
+        AttributionSourceId_GroundingPassageId:
+            type: object
+            properties:
+                passageId:
+                    readOnly: true
+                    type: string
+                    description: |-
+                        Output only. ID of the passage matching the `GenerateAnswerRequest`'s
+                         `GroundingPassage.id`.
+                partIndex:
+                    readOnly: true
+                    type: integer
+                    description: |-
+                        Output only. Index of the part within the `GenerateAnswerRequest`'s
+                         `GroundingPassage.content`.
+                    format: int32
+            description: Identifier for a part within a `GroundingPassage`.
+        AttributionSourceId_SemanticRetrieverChunk:
+            type: object
+            properties:
+                source:
+                    readOnly: true
+                    type: string
+                    description: |-
+                        Output only. Name of the source matching the request's
+                         `SemanticRetrieverConfig.source`. Example: `corpora/123` or
+                         `corpora/123/documents/abc`
+                chunk:
+                    readOnly: true
+                    type: string
+                    description: |-
+                        Output only. Name of the `Chunk` containing the attributed text.
+                         Example: `corpora/123/documents/abc/chunks/xyz`
+            description: |-
+                Identifier for a `Chunk` retrieved via Semantic Retriever specified in the
+                 `GenerateAnswerRequest` using `SemanticRetrieverConfig`.
+        BatchEmbedContentsRequest:
             required:
                 - model
                 - requests
@@ -274,24 +412,24 @@ components:
                 requests:
                     type: array
                     items:
-                        $ref: '#/components/schemas/google.ai.generativelanguage.v1.EmbedContentRequest'
+                        $ref: '#/components/schemas/EmbedContentRequest'
                     description: |-
                         Required. Embed requests for the batch. The model in each of these requests
                          must match the model specified `BatchEmbedContentsRequest.model`.
             description: Batch request to get embeddings from the model for a list of prompts.
-        google.ai.generativelanguage.v1.BatchEmbedContentsResponse:
+        BatchEmbedContentsResponse:
             type: object
             properties:
                 embeddings:
                     readOnly: true
                     type: array
                     items:
-                        $ref: '#/components/schemas/google.ai.generativelanguage.v1.ContentEmbedding'
+                        $ref: '#/components/schemas/ContentEmbedding'
                     description: |-
                         Output only. The embeddings for each request, in the same order as provided
                          in the batch request.
             description: The response to a `BatchEmbedContentsRequest`.
-        google.ai.generativelanguage.v1.Blob:
+        Blob:
             type: object
             properties:
                 mimeType:
@@ -312,7 +450,7 @@ components:
                 Raw media bytes.
 
                  Text should not be sent as raw bytes, use the 'text' field.
-        google.ai.generativelanguage.v1.Candidate:
+        Candidate:
             type: object
             properties:
                 index:
@@ -323,7 +461,7 @@ components:
                 content:
                     readOnly: true
                     allOf:
-                        - $ref: '#/components/schemas/google.ai.generativelanguage.v1.Content'
+                        - $ref: '#/components/schemas/Content'
                     description: Output only. Generated content returned from the model.
                 finishReason:
                     readOnly: true
@@ -336,7 +474,7 @@ components:
                 safetyRatings:
                     type: array
                     items:
-                        $ref: '#/components/schemas/google.ai.generativelanguage.v1.SafetyRating'
+                        $ref: '#/components/schemas/SafetyRating'
                     description: |-
                         List of ratings for the safety of a response candidate.
 
@@ -344,7 +482,7 @@ components:
                 citationMetadata:
                     readOnly: true
                     allOf:
-                        - $ref: '#/components/schemas/google.ai.generativelanguage.v1.CitationMetadata'
+                        - $ref: '#/components/schemas/CitationMetadata'
                     description: |-
                         Output only. Citation information for model-generated candidate.
 
@@ -356,10 +494,20 @@ components:
                     type: integer
                     description: Output only. Token count for this candidate.
                     format: int32
+                groundingAttributions:
+                    readOnly: true
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/GroundingAttribution'
+                    description: |-
+                        Output only. Attribution information for sources that contributed to a
+                         grounded answer.
+
+                         This field is populated for `GenerateAnswer` calls.
                 groundingMetadata:
                     readOnly: true
                     allOf:
-                        - $ref: '#/components/schemas/google.ai.generativelanguage.v1.GroundingMetadata'
+                        - $ref: '#/components/schemas/GroundingMetadata'
                     description: |-
                         Output only. Grounding metadata for the candidate.
 
@@ -372,24 +520,24 @@ components:
                 logprobsResult:
                     readOnly: true
                     allOf:
-                        - $ref: '#/components/schemas/google.ai.generativelanguage.v1.LogprobsResult'
+                        - $ref: '#/components/schemas/LogprobsResult'
                     description: Output only. Log-likelihood scores for the response tokens and top tokens
                 urlContextMetadata:
                     readOnly: true
                     allOf:
-                        - $ref: '#/components/schemas/google.ai.generativelanguage.v1.UrlContextMetadata'
+                        - $ref: '#/components/schemas/UrlContextMetadata'
                     description: Output only. Metadata related to url context retrieval tool.
             description: A response candidate generated from the model.
-        google.ai.generativelanguage.v1.CitationMetadata:
+        CitationMetadata:
             type: object
             properties:
                 citationSources:
                     type: array
                     items:
-                        $ref: '#/components/schemas/google.ai.generativelanguage.v1.CitationSource'
+                        $ref: '#/components/schemas/CitationSource'
                     description: Citations to sources for a specific response.
             description: A collection of source attributions for a piece of content.
-        google.ai.generativelanguage.v1.CitationSource:
+        CitationSource:
             type: object
             properties:
                 startIndex:
@@ -415,13 +563,60 @@ components:
 
                          License info is required for code citations.
             description: A citation to a source for a portion of a specific response.
-        google.ai.generativelanguage.v1.Content:
+        CodeExecution:
+            type: object
+            properties: {}
+            description: |-
+                Tool that executes code generated by the model, and automatically returns
+                 the result to the model.
+
+                 See also `ExecutableCode` and `CodeExecutionResult` which are only generated
+                 when using this tool.
+        CodeExecutionResult:
+            required:
+                - outcome
+            type: object
+            properties:
+                outcome:
+                    type: integer
+                    description: Required. Outcome of the code execution.
+                    format: enum
+                output:
+                    type: string
+                    description: |-
+                        Optional. Contains stdout when code execution is successful, stderr or
+                         other description otherwise.
+            description: |-
+                Result of executing the `ExecutableCode`.
+
+                 Only generated when using the `CodeExecution`, and always follows a `part`
+                 containing the `ExecutableCode`.
+        Condition:
+            required:
+                - operation
+            type: object
+            properties:
+                stringValue:
+                    type: string
+                    description: The string value to filter the metadata on.
+                numericValue:
+                    type: number
+                    description: The numeric value to filter the metadata on.
+                    format: float
+                operation:
+                    type: integer
+                    description: |-
+                        Required. Operator applied to the given key-value pair to trigger the
+                         condition.
+                    format: enum
+            description: Filter condition applicable to a single key.
+        Content:
             type: object
             properties:
                 parts:
                     type: array
                     items:
-                        $ref: '#/components/schemas/google.ai.generativelanguage.v1.Part'
+                        $ref: '#/components/schemas/Part'
                     description: |-
                         Ordered `Parts` that constitute a single message. Parts may have different
                          MIME types.
@@ -438,7 +633,7 @@ components:
                  A `Content` includes a `role` field designating the producer of the `Content`
                  and a `parts` field containing multi-part data that contains the content of
                  the message turn.
-        google.ai.generativelanguage.v1.ContentEmbedding:
+        ContentEmbedding:
             type: object
             properties:
                 values:
@@ -448,7 +643,7 @@ components:
                         format: float
                     description: The embedding values.
             description: A list of floats representing an embedding.
-        google.ai.generativelanguage.v1.CountTokensRequest:
+        CountTokensRequest:
             required:
                 - model
             type: object
@@ -465,13 +660,13 @@ components:
                 contents:
                     type: array
                     items:
-                        $ref: '#/components/schemas/google.ai.generativelanguage.v1.Content'
+                        $ref: '#/components/schemas/Content'
                     description: |-
                         Optional. The input given to the model as a prompt. This field is ignored
                          when `generate_content_request` is set.
                 generateContentRequest:
                     allOf:
-                        - $ref: '#/components/schemas/google.ai.generativelanguage.v1.GenerateContentRequest'
+                        - $ref: '#/components/schemas/GenerateContentRequest'
                     description: |-
                         Optional. The overall input given to the `Model`. This includes the prompt
                          as well as other model steering information like [system
@@ -486,7 +681,7 @@ components:
 
                  Models may tokenize text differently, so each model may return a different
                  `token_count`.
-        google.ai.generativelanguage.v1.CountTokensResponse:
+        CountTokensResponse:
             type: object
             properties:
                 totalTokens:
@@ -495,23 +690,41 @@ components:
                         The number of tokens that the `Model` tokenizes the `prompt` into. Always
                          non-negative.
                     format: int32
+                cachedContentTokenCount:
+                    type: integer
+                    description: Number of tokens in the cached part of the prompt (the cached content).
+                    format: int32
                 promptTokensDetails:
                     readOnly: true
                     type: array
                     items:
-                        $ref: '#/components/schemas/google.ai.generativelanguage.v1.ModalityTokenCount'
+                        $ref: '#/components/schemas/ModalityTokenCount'
                     description: Output only. List of modalities that were processed in the request input.
                 cacheTokensDetails:
                     readOnly: true
                     type: array
                     items:
-                        $ref: '#/components/schemas/google.ai.generativelanguage.v1.ModalityTokenCount'
+                        $ref: '#/components/schemas/ModalityTokenCount'
                     description: Output only. List of modalities that were processed in the cached content.
             description: |-
                 A response from `CountTokens`.
 
                  It returns the model's `token_count` for the `prompt`.
-        google.ai.generativelanguage.v1.EmbedContentRequest:
+        DynamicRetrievalConfig:
+            type: object
+            properties:
+                mode:
+                    type: integer
+                    description: The mode of the predictor to be used in dynamic retrieval.
+                    format: enum
+                dynamicThreshold:
+                    type: number
+                    description: |-
+                        The threshold to be used in dynamic retrieval.
+                         If not set, a system default value is used.
+                    format: float
+            description: Describes the options to customize dynamic retrieval.
+        EmbedContentRequest:
             required:
                 - model
                 - content
@@ -528,7 +741,7 @@ components:
                          Format: `models/{model}`
                 content:
                     allOf:
-                        - $ref: '#/components/schemas/google.ai.generativelanguage.v1.Content'
+                        - $ref: '#/components/schemas/Content'
                     description: |-
                         Required. The content to embed. Only the `parts.text` fields will be
                          counted.
@@ -555,16 +768,348 @@ components:
                          using the earlier model (`models/embedding-001`).
                     format: int32
             description: Request containing the `Content` for the model to embed.
-        google.ai.generativelanguage.v1.EmbedContentResponse:
+        EmbedContentResponse:
             type: object
             properties:
                 embedding:
                     readOnly: true
                     allOf:
-                        - $ref: '#/components/schemas/google.ai.generativelanguage.v1.ContentEmbedding'
+                        - $ref: '#/components/schemas/ContentEmbedding'
                     description: Output only. The embedding generated from the input content.
             description: The response to an `EmbedContentRequest`.
-        google.ai.generativelanguage.v1.GenerateContentRequest:
+        ExecutableCode:
+            required:
+                - language
+                - code
+            type: object
+            properties:
+                language:
+                    type: integer
+                    description: Required. Programming language of the `code`.
+                    format: enum
+                code:
+                    type: string
+                    description: Required. The code to be executed.
+            description: |-
+                Code generated by the model that is meant to be executed, and the result
+                 returned to the model.
+
+                 Only generated when using the `CodeExecution` tool, in which the code will
+                 be automatically executed, and a corresponding `CodeExecutionResult` will
+                 also be generated.
+        FileData:
+            required:
+                - fileUri
+            type: object
+            properties:
+                mimeType:
+                    type: string
+                    description: Optional. The IANA standard MIME type of the source data.
+                fileUri:
+                    type: string
+                    description: Required. URI.
+            description: URI based data.
+        FunctionCall:
+            required:
+                - name
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: |-
+                        Optional. The unique id of the function call. If populated, the client to
+                         execute the `function_call` and return the response with the matching `id`.
+                name:
+                    type: string
+                    description: |-
+                        Required. The name of the function to call.
+                         Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum
+                         length of 63.
+                args:
+                    type: object
+                    description: Optional. The function parameters and values in JSON object format.
+            description: |-
+                A predicted `FunctionCall` returned from the model that contains
+                 a string representing the `FunctionDeclaration.name` with the
+                 arguments and their values.
+        FunctionCallingConfig:
+            type: object
+            properties:
+                mode:
+                    type: integer
+                    description: |-
+                        Optional. Specifies the mode in which function calling should execute. If
+                         unspecified, the default value will be set to AUTO.
+                    format: enum
+                allowedFunctionNames:
+                    type: array
+                    items:
+                        type: string
+                    description: |-
+                        Optional. A set of function names that, when provided, limits the functions
+                         the model will call.
+
+                         This should only be set when the Mode is ANY. Function names
+                         should match [FunctionDeclaration.name]. With mode set to ANY, model will
+                         predict a function call from the set of function names provided.
+            description: Configuration for specifying function calling behavior.
+        FunctionDeclaration:
+            required:
+                - name
+                - description
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: |-
+                        Required. The name of the function.
+                         Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum
+                         length of 63.
+                description:
+                    type: string
+                    description: Required. A brief description of the function.
+                parameters:
+                    allOf:
+                        - $ref: '#/components/schemas/Schema'
+                    description: |-
+                        Optional. Describes the parameters to this function. Reflects the Open
+                         API 3.03 Parameter Object string Key: the name of the parameter. Parameter
+                         names are case sensitive. Schema Value: the Schema defining the type used
+                         for the parameter.
+                parametersJsonSchema:
+                    allOf:
+                        - $ref: '#/components/schemas/GoogleProtobufValue'
+                    description: |-
+                        Optional. Describes the parameters to the function in JSON Schema format.
+                         The schema must describe an object where the properties are the parameters
+                         to the function. For example:
+
+                         ```
+                         {
+                           "type": "object",
+                           "properties": {
+                             "name": { "type": "string" },
+                             "age": { "type": "integer" }
+                           },
+                           "additionalProperties": false,
+                           "required": ["name", "age"],
+                           "propertyOrdering": ["name", "age"]
+                         }
+                         ```
+
+                         This field is mutually exclusive with `parameters`.
+                response:
+                    allOf:
+                        - $ref: '#/components/schemas/Schema'
+                    description: |-
+                        Optional. Describes the output from this function in JSON Schema format.
+                         Reflects the Open API 3.03 Response Object. The Schema defines the type
+                         used for the response value of the function.
+                responseJsonSchema:
+                    allOf:
+                        - $ref: '#/components/schemas/GoogleProtobufValue'
+                    description: |-
+                        Optional. Describes the output from this function in JSON Schema format.
+                         The value specified by the schema is the response value of the function.
+
+                         This field is mutually exclusive with `response`.
+                behavior:
+                    type: integer
+                    description: |-
+                        Optional. Specifies the function Behavior.
+                         Currently only supported by the BidiGenerateContent method.
+                    format: enum
+            description: |-
+                Structured representation of a function declaration as defined by the
+                 [OpenAPI 3.03 specification](https://spec.openapis.org/oas/v3.0.3). Included
+                 in this declaration are the function name and parameters. This
+                 FunctionDeclaration is a representation of a block of code that can be used
+                 as a `Tool` by the model and executed by the client.
+        FunctionResponse:
+            required:
+                - name
+                - response
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: |-
+                        Optional. The id of the function call this response is for. Populated by
+                         the client to match the corresponding function call `id`.
+                name:
+                    type: string
+                    description: |-
+                        Required. The name of the function to call.
+                         Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum
+                         length of 63.
+                response:
+                    type: object
+                    description: Required. The function response in JSON object format.
+                willContinue:
+                    type: boolean
+                    description: |-
+                        Optional. Signals that function call continues, and more responses will be
+                         returned, turning the function call into a generator.
+                         Is only applicable to NON_BLOCKING function calls, is ignored otherwise.
+                         If set to false, future responses will not be considered.
+                         It is allowed to return empty `response` with `will_continue=False` to
+                         signal that the function call is finished. This may still trigger the model
+                         generation. To avoid triggering the generation and finish the function
+                         call, additionally set `scheduling` to `SILENT`.
+                scheduling:
+                    type: integer
+                    description: |-
+                        Optional. Specifies how the response should be scheduled in the
+                         conversation. Only applicable to NON_BLOCKING function calls, is ignored
+                         otherwise. Defaults to WHEN_IDLE.
+                    format: enum
+            description: |-
+                The result output from a `FunctionCall` that contains a string
+                 representing the `FunctionDeclaration.name` and a structured JSON
+                 object containing any output from the function is used as context to
+                 the model. This should contain the result of a`FunctionCall` made
+                 based on model prediction.
+        GenerateAnswerRequest:
+            required:
+                - model
+                - contents
+                - answerStyle
+            type: object
+            properties:
+                inlinePassages:
+                    allOf:
+                        - $ref: '#/components/schemas/GroundingPassages'
+                    description: Passages provided inline with the request.
+                semanticRetriever:
+                    allOf:
+                        - $ref: '#/components/schemas/SemanticRetrieverConfig'
+                    description: |-
+                        Content retrieved from resources created via the Semantic Retriever
+                         API.
+                model:
+                    type: string
+                    description: |-
+                        Required. The name of the `Model` to use for generating the grounded
+                         response.
+
+                         Format: `model=models/{model}`.
+                contents:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/Content'
+                    description: |-
+                        Required. The content of the current conversation with the `Model`. For
+                         single-turn queries, this is a single question to answer. For multi-turn
+                         queries, this is a repeated field that contains conversation history and
+                         the last `Content` in the list containing the question.
+
+                         Note: `GenerateAnswer` only supports queries in English.
+                answerStyle:
+                    type: integer
+                    description: Required. Style in which answers should be returned.
+                    format: enum
+                safetySettings:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/SafetySetting'
+                    description: |-
+                        Optional. A list of unique `SafetySetting` instances for blocking unsafe
+                         content.
+
+                         This will be enforced on the `GenerateAnswerRequest.contents` and
+                         `GenerateAnswerResponse.candidate`. There should not be more than one
+                         setting for each `SafetyCategory` type. The API will block any contents and
+                         responses that fail to meet the thresholds set by these settings. This list
+                         overrides the default settings for each `SafetyCategory` specified in the
+                         safety_settings. If there is no `SafetySetting` for a given
+                         `SafetyCategory` provided in the list, the API will use the default safety
+                         setting for that category. Harm categories HARM_CATEGORY_HATE_SPEECH,
+                         HARM_CATEGORY_SEXUALLY_EXPLICIT, HARM_CATEGORY_DANGEROUS_CONTENT,
+                         HARM_CATEGORY_HARASSMENT are supported.
+                         Refer to the
+                         [guide](https://ai.google.dev/gemini-api/docs/safety-settings)
+                         for detailed information on available safety settings. Also refer to the
+                         [Safety guidance](https://ai.google.dev/gemini-api/docs/safety-guidance) to
+                         learn how to incorporate safety considerations in your AI applications.
+                temperature:
+                    type: number
+                    description: |-
+                        Optional. Controls the randomness of the output.
+
+                         Values can range from [0.0,1.0], inclusive. A value closer to 1.0 will
+                         produce responses that are more varied and creative, while a value closer
+                         to 0.0 will typically result in more straightforward responses from the
+                         model. A low temperature (~0.2) is usually recommended for
+                         Attributed-Question-Answering use cases.
+                    format: float
+            description: Request to generate a grounded answer from the `Model`.
+        GenerateAnswerResponse:
+            type: object
+            properties:
+                answer:
+                    allOf:
+                        - $ref: '#/components/schemas/Candidate'
+                    description: |-
+                        Candidate answer from the model.
+
+                         Note: The model *always* attempts to provide a grounded answer, even when
+                         the answer is unlikely to be answerable from the given passages.
+                         In that case, a low-quality or ungrounded answer may be provided, along
+                         with a low `answerable_probability`.
+                answerableProbability:
+                    readOnly: true
+                    type: number
+                    description: |-
+                        Output only. The model's estimate of the probability that its answer is
+                         correct and grounded in the input passages.
+
+                         A low `answerable_probability` indicates that the answer might not be
+                         grounded in the sources.
+
+                         When `answerable_probability` is low, you may want to:
+
+                         * Display a message to the effect of "We couldn’t answer that question" to
+                         the user.
+                         * Fall back to a general-purpose LLM that answers the question from world
+                         knowledge. The threshold and nature of such fallbacks will depend on
+                         individual use cases. `0.5` is a good starting threshold.
+                    format: float
+                inputFeedback:
+                    readOnly: true
+                    allOf:
+                        - $ref: '#/components/schemas/GenerateAnswerResponse_InputFeedback'
+                    description: |-
+                        Output only. Feedback related to the input data used to answer the
+                         question, as opposed to the model-generated response to the question.
+
+                         The input data can be one or more of the following:
+
+                         - Question specified by the last entry in `GenerateAnswerRequest.content`
+                         - Conversation history specified by the other entries in
+                         `GenerateAnswerRequest.content`
+                         - Grounding sources (`GenerateAnswerRequest.semantic_retriever` or
+                         `GenerateAnswerRequest.inline_passages`)
+            description: Response from the model for a grounded answer.
+        GenerateAnswerResponse_InputFeedback:
+            type: object
+            properties:
+                blockReason:
+                    type: integer
+                    description: |-
+                        Optional. If set, the input was blocked and no candidates are returned.
+                         Rephrase the input.
+                    format: enum
+                safetyRatings:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/SafetyRating'
+                    description: |-
+                        Ratings for safety of the input.
+                         There is at most one rating per category.
+            description: |-
+                Feedback related to the input data used to answer the question, as opposed
+                 to the model-generated response to the question.
+        GenerateContentRequest:
             required:
                 - model
                 - contents
@@ -576,10 +1121,17 @@ components:
                         Required. The name of the `Model` to use for generating the completion.
 
                          Format: `models/{model}`.
+                systemInstruction:
+                    allOf:
+                        - $ref: '#/components/schemas/Content'
+                    description: |-
+                        Optional. Developer set [system
+                         instruction(s)](https://ai.google.dev/gemini-api/docs/system-instructions).
+                         Currently, text only.
                 contents:
                     type: array
                     items:
-                        $ref: '#/components/schemas/google.ai.generativelanguage.v1.Content'
+                        $ref: '#/components/schemas/Content'
                     description: |-
                         Required. The content of the current conversation with the model.
 
@@ -587,10 +1139,33 @@ components:
                          like [chat](https://ai.google.dev/gemini-api/docs/text-generation#chat),
                          this is a repeated field that contains the conversation history and the
                          latest request.
+                tools:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/Tool'
+                    description: |-
+                        Optional. A list of `Tools` the `Model` may use to generate the next
+                         response.
+
+                         A `Tool` is a piece of code that enables the system to interact with
+                         external systems to perform an action, or set of actions, outside of
+                         knowledge and scope of the `Model`. Supported `Tool`s are `Function` and
+                         `code_execution`. Refer to the [Function
+                         calling](https://ai.google.dev/gemini-api/docs/function-calling) and the
+                         [Code execution](https://ai.google.dev/gemini-api/docs/code-execution)
+                         guides to learn more.
+                toolConfig:
+                    allOf:
+                        - $ref: '#/components/schemas/ToolConfig'
+                    description: |-
+                        Optional. Tool configuration for any `Tool` specified in the request. Refer
+                         to the [Function calling
+                         guide](https://ai.google.dev/gemini-api/docs/function-calling#function_calling_mode)
+                         for a usage example.
                 safetySettings:
                     type: array
                     items:
-                        $ref: '#/components/schemas/google.ai.generativelanguage.v1.SafetySetting'
+                        $ref: '#/components/schemas/SafetySetting'
                     description: |-
                         Optional. A list of unique `SafetySetting` instances for blocking unsafe
                          content.
@@ -611,25 +1186,31 @@ components:
                          learn how to incorporate safety considerations in your AI applications.
                 generationConfig:
                     allOf:
-                        - $ref: '#/components/schemas/google.ai.generativelanguage.v1.GenerationConfig'
+                        - $ref: '#/components/schemas/GenerationConfig'
                     description: Optional. Configuration options for model generation and outputs.
+                cachedContent:
+                    type: string
+                    description: |-
+                        Optional. The name of the content
+                         [cached](https://ai.google.dev/gemini-api/docs/caching) to use as context
+                         to serve the prediction. Format: `cachedContents/{cachedContent}`
             description: Request to generate a completion from the model.
-        google.ai.generativelanguage.v1.GenerateContentResponse:
+        GenerateContentResponse:
             type: object
             properties:
                 candidates:
                     type: array
                     items:
-                        $ref: '#/components/schemas/google.ai.generativelanguage.v1.Candidate'
+                        $ref: '#/components/schemas/Candidate'
                     description: Candidate responses from the model.
                 promptFeedback:
                     allOf:
-                        - $ref: '#/components/schemas/google.ai.generativelanguage.v1.GenerateContentResponse_PromptFeedback'
+                        - $ref: '#/components/schemas/GenerateContentResponse_PromptFeedback'
                     description: Returns the prompt's feedback related to the content filters.
                 usageMetadata:
                     readOnly: true
                     allOf:
-                        - $ref: '#/components/schemas/google.ai.generativelanguage.v1.GenerateContentResponse_UsageMetadata'
+                        - $ref: '#/components/schemas/GenerateContentResponse_UsageMetadata'
                     description: Output only. Metadata on the generation requests' token usage.
                 modelVersion:
                     readOnly: true
@@ -650,7 +1231,7 @@ components:
                     prompt (check `prompt_feedback`)
                   - Reports feedback on each candidate in `finish_reason` and
                     `safety_ratings`.
-        google.ai.generativelanguage.v1.GenerateContentResponse_PromptFeedback:
+        GenerateContentResponse_PromptFeedback:
             type: object
             properties:
                 blockReason:
@@ -662,14 +1243,14 @@ components:
                 safetyRatings:
                     type: array
                     items:
-                        $ref: '#/components/schemas/google.ai.generativelanguage.v1.SafetyRating'
+                        $ref: '#/components/schemas/SafetyRating'
                     description: |-
                         Ratings for safety of the prompt.
                          There is at most one rating per category.
             description: |-
                 A set of the feedback metadata the prompt specified in
                  `GenerateContentRequest.content`.
-        google.ai.generativelanguage.v1.GenerateContentResponse_UsageMetadata:
+        GenerateContentResponse_UsageMetadata:
             type: object
             properties:
                 promptTokenCount:
@@ -678,6 +1259,10 @@ components:
                         Number of tokens in the prompt. When `cached_content` is set, this is
                          still the total effective prompt size meaning this includes the number of
                          tokens in the cached content.
+                    format: int32
+                cachedContentTokenCount:
+                    type: integer
+                    description: Number of tokens in the cached part of the prompt (the cached content)
                     format: int32
                 candidatesTokenCount:
                     type: integer
@@ -703,13 +1288,13 @@ components:
                     readOnly: true
                     type: array
                     items:
-                        $ref: '#/components/schemas/google.ai.generativelanguage.v1.ModalityTokenCount'
+                        $ref: '#/components/schemas/ModalityTokenCount'
                     description: Output only. List of modalities that were processed in the request input.
                 cacheTokensDetails:
                     readOnly: true
                     type: array
                     items:
-                        $ref: '#/components/schemas/google.ai.generativelanguage.v1.ModalityTokenCount'
+                        $ref: '#/components/schemas/ModalityTokenCount'
                     description: |-
                         Output only. List of modalities of the cached content in the request
                          input.
@@ -717,18 +1302,18 @@ components:
                     readOnly: true
                     type: array
                     items:
-                        $ref: '#/components/schemas/google.ai.generativelanguage.v1.ModalityTokenCount'
+                        $ref: '#/components/schemas/ModalityTokenCount'
                     description: Output only. List of modalities that were returned in the response.
                 toolUsePromptTokensDetails:
                     readOnly: true
                     type: array
                     items:
-                        $ref: '#/components/schemas/google.ai.generativelanguage.v1.ModalityTokenCount'
+                        $ref: '#/components/schemas/ModalityTokenCount'
                     description: |-
                         Output only. List of modalities that were processed for tool-use request
                          inputs.
             description: Metadata on the generation request's token usage.
-        google.ai.generativelanguage.v1.GenerationConfig:
+        GenerationConfig:
             type: object
             properties:
                 candidateCount:
@@ -803,6 +1388,70 @@ components:
                         Optional. Seed used in decoding. If not set, the request uses a randomly
                          generated seed.
                     format: int32
+                responseMimeType:
+                    type: string
+                    description: |-
+                        Optional. MIME type of the generated candidate text.
+                         Supported MIME types are:
+                         `text/plain`: (default) Text output.
+                         `application/json`: JSON response in the response candidates.
+                         `text/x.enum`: ENUM as a string response in the response candidates.
+                         Refer to the
+                         [docs](https://ai.google.dev/gemini-api/docs/prompting_with_media#plain_text_formats)
+                         for a list of all supported text MIME types.
+                responseSchema:
+                    allOf:
+                        - $ref: '#/components/schemas/Schema'
+                    description: |-
+                        Optional. Output schema of the generated candidate text. Schemas must be a
+                         subset of the [OpenAPI schema](https://spec.openapis.org/oas/v3.0.3#schema)
+                         and can be objects, primitives or arrays.
+
+                         If set, a compatible `response_mime_type` must also be set.
+                         Compatible MIME types:
+                         `application/json`: Schema for JSON response.
+                         Refer to the [JSON text generation
+                         guide](https://ai.google.dev/gemini-api/docs/json-mode) for more details.
+                responseJsonSchema:
+                    allOf:
+                        - $ref: '#/components/schemas/GoogleProtobufValue'
+                    description: |-
+                        Optional. Output schema of the generated response. This is an alternative
+                         to `response_schema` that accepts [JSON Schema](https://json-schema.org/).
+
+                         If set, `response_schema` must be omitted, but `response_mime_type` is
+                         required.
+
+                         While the full JSON Schema may be sent, not all features are supported.
+                         Specifically, only the following properties are supported:
+
+                         - `$id`
+                         - `$defs`
+                         - `$ref`
+                         - `$anchor`
+                         - `type`
+                         - `format`
+                         - `title`
+                         - `description`
+                         - `enum` (for strings and numbers)
+                         - `items`
+                         - `prefixItems`
+                         - `minItems`
+                         - `maxItems`
+                         - `minimum`
+                         - `maximum`
+                         - `anyOf`
+                         - `oneOf` (interpreted the same as `anyOf`)
+                         - `properties`
+                         - `additionalProperties`
+                         - `required`
+
+                         The non-standard `propertyOrdering` property may also be set.
+
+                         Cyclic references are unrolled to a limited degree and, as such, may only
+                         be used within non-required properties. (Nullable properties are not
+                         sufficient.) If `$ref` is set on a sub-schema, no other properties, except
+                         for than those starting as a `$`, may be set.
                 presencePenalty:
                     type: number
                     description: |-
@@ -811,7 +1460,7 @@ components:
 
                          This penalty is binary on/off and not dependant on the number of times the
                          token is used (after the first). Use
-                         [frequency_penalty][google.ai.generativelanguage.v1.GenerationConfig.frequency_penalty]
+                         [frequency_penalty][google.ai.generativelanguage.v1beta.GenerationConfig.frequency_penalty]
                          for a penalty that increases with each use.
 
                          A positive penalty will discourage the use of tokens that have already
@@ -837,7 +1486,7 @@ components:
                          negative values will reduce the vocabulary of a response. Larger negative
                          values will cause the model to start repeating a common token  until it
                          hits the
-                         [max_output_tokens][google.ai.generativelanguage.v1.GenerationConfig.max_output_tokens]
+                         [max_output_tokens][google.ai.generativelanguage.v1beta.GenerationConfig.max_output_tokens]
                          limit.
                     format: float
                 responseLogprobs:
@@ -847,27 +1496,88 @@ components:
                     type: integer
                     description: |-
                         Optional. Only valid if
-                         [response_logprobs=True][google.ai.generativelanguage.v1.GenerationConfig.response_logprobs].
+                         [response_logprobs=True][google.ai.generativelanguage.v1beta.GenerationConfig.response_logprobs].
                          This sets the number of top logprobs to return at each decoding step in the
-                         [Candidate.logprobs_result][google.ai.generativelanguage.v1.Candidate.logprobs_result].
+                         [Candidate.logprobs_result][google.ai.generativelanguage.v1beta.Candidate.logprobs_result].
                     format: int32
                 enableEnhancedCivicAnswers:
                     type: boolean
                     description: |-
                         Optional. Enables enhanced civic answers. It may not be available for all
                          models.
+                responseModalities:
+                    type: array
+                    items:
+                        type: integer
+                        format: enum
+                    description: |-
+                        Optional. The requested modalities of the response. Represents the set of
+                         modalities that the model can return, and should be expected in the
+                         response. This is an exact match to the modalities of the response.
+
+                         A model may have multiple combinations of supported modalities. If the
+                         requested modalities do not match any of the supported combinations, an
+                         error will be returned.
+
+                         An empty list is equivalent to requesting only text.
+                speechConfig:
+                    allOf:
+                        - $ref: '#/components/schemas/SpeechConfig'
+                    description: Optional. The speech generation config.
+                thinkingConfig:
+                    allOf:
+                        - $ref: '#/components/schemas/ThinkingConfig'
+                    description: |-
+                        Optional. Config for thinking features.
+                         An error will be returned if this field is set for models that don't
+                         support thinking.
+                mediaResolution:
+                    type: integer
+                    description: Optional. If specified, the media resolution specified will be used.
+                    format: enum
             description: |-
                 Configuration options for model generation and outputs. Not all parameters
                  are configurable for every model.
-        google.ai.generativelanguage.v1.GroundingChunk:
+        GoogleProtobufAny:
+            type: object
+            properties:
+                '@type':
+                    type: string
+                    description: The type of the serialized message.
+            additionalProperties: true
+            description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
+        GoogleProtobufValue:
+            description: Represents a dynamically typed value which can be either null, a number, a string, a boolean, a recursive struct value, or a list of values.
+        GoogleSearchRetrieval:
+            type: object
+            properties:
+                dynamicRetrievalConfig:
+                    allOf:
+                        - $ref: '#/components/schemas/DynamicRetrievalConfig'
+                    description: Specifies the dynamic retrieval configuration for the given source.
+            description: Tool to retrieve public web data for grounding, powered by Google.
+        GroundingAttribution:
+            type: object
+            properties:
+                sourceId:
+                    readOnly: true
+                    allOf:
+                        - $ref: '#/components/schemas/AttributionSourceId'
+                    description: Output only. Identifier for the source contributing to this attribution.
+                content:
+                    allOf:
+                        - $ref: '#/components/schemas/Content'
+                    description: Grounding source content that makes up this attribution.
+            description: Attribution for a source that contributed to an answer.
+        GroundingChunk:
             type: object
             properties:
                 web:
                     allOf:
-                        - $ref: '#/components/schemas/google.ai.generativelanguage.v1.GroundingChunk_Web'
+                        - $ref: '#/components/schemas/GroundingChunk_Web'
                     description: Grounding chunk from the web.
             description: Grounding chunk.
-        google.ai.generativelanguage.v1.GroundingChunk_Web:
+        GroundingChunk_Web:
             type: object
             properties:
                 uri:
@@ -877,26 +1587,26 @@ components:
                     type: string
                     description: Title of the chunk.
             description: Chunk from the web.
-        google.ai.generativelanguage.v1.GroundingMetadata:
+        GroundingMetadata:
             type: object
             properties:
                 searchEntryPoint:
                     allOf:
-                        - $ref: '#/components/schemas/google.ai.generativelanguage.v1.SearchEntryPoint'
+                        - $ref: '#/components/schemas/SearchEntryPoint'
                     description: Optional. Google search entry for the following-up web searches.
                 groundingChunks:
                     type: array
                     items:
-                        $ref: '#/components/schemas/google.ai.generativelanguage.v1.GroundingChunk'
+                        $ref: '#/components/schemas/GroundingChunk'
                     description: List of supporting references retrieved from specified grounding source.
                 groundingSupports:
                     type: array
                     items:
-                        $ref: '#/components/schemas/google.ai.generativelanguage.v1.GroundingSupport'
+                        $ref: '#/components/schemas/GroundingSupport'
                     description: List of grounding support.
                 retrievalMetadata:
                     allOf:
-                        - $ref: '#/components/schemas/google.ai.generativelanguage.v1.RetrievalMetadata'
+                        - $ref: '#/components/schemas/RetrievalMetadata'
                     description: Metadata related to retrieval in the grounding flow.
                 webSearchQueries:
                     type: array
@@ -904,12 +1614,34 @@ components:
                         type: string
                     description: Web search queries for the following-up web search.
             description: Metadata returned to client when grounding is enabled.
-        google.ai.generativelanguage.v1.GroundingSupport:
+        GroundingPassage:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: |-
+                        Identifier for the passage for attributing this passage in grounded
+                         answers.
+                content:
+                    allOf:
+                        - $ref: '#/components/schemas/Content'
+                    description: Content of the passage.
+            description: Passage included inline with a grounding configuration.
+        GroundingPassages:
+            type: object
+            properties:
+                passages:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/GroundingPassage'
+                    description: List of passages.
+            description: A repeated list of passages.
+        GroundingSupport:
             type: object
             properties:
                 segment:
                     allOf:
-                        - $ref: '#/components/schemas/google.ai.generativelanguage.v1.Segment'
+                        - $ref: '#/components/schemas/Segment'
                     description: Segment of the content this support belongs to.
                 groundingChunkIndices:
                     type: array
@@ -931,23 +1663,49 @@ components:
                          most confident. This list must have the same size as the
                          grounding_chunk_indices.
             description: Grounding support.
-        google.ai.generativelanguage.v1.LogprobsResult:
+        Interval:
+            type: object
+            properties:
+                startTime:
+                    type: string
+                    description: |-
+                        Optional. Inclusive start of the interval.
+
+                         If specified, a Timestamp matching this interval will have to be the same
+                         or after the start.
+                    format: date-time
+                endTime:
+                    type: string
+                    description: |-
+                        Optional. Exclusive end of the interval.
+
+                         If specified, a Timestamp matching this interval will have to be before the
+                         end.
+                    format: date-time
+            description: |-
+                Represents a time interval, encoded as a Timestamp start (inclusive) and a
+                 Timestamp end (exclusive).
+
+                 The start must be less than or equal to the end.
+                 When the start equals the end, the interval is empty (matches no time).
+                 When both start and end are unspecified, the interval matches any time.
+        LogprobsResult:
             type: object
             properties:
                 topCandidates:
                     type: array
                     items:
-                        $ref: '#/components/schemas/google.ai.generativelanguage.v1.LogprobsResult_TopCandidates'
+                        $ref: '#/components/schemas/LogprobsResult_TopCandidates'
                     description: Length = total number of decoding steps.
                 chosenCandidates:
                     type: array
                     items:
-                        $ref: '#/components/schemas/google.ai.generativelanguage.v1.LogprobsResult_Candidate'
+                        $ref: '#/components/schemas/LogprobsResult_Candidate'
                     description: |-
                         Length = total number of decoding steps.
                          The chosen candidates may or may not be in top_candidates.
             description: Logprobs Result
-        google.ai.generativelanguage.v1.LogprobsResult_Candidate:
+        LogprobsResult_Candidate:
             type: object
             properties:
                 token:
@@ -962,16 +1720,39 @@ components:
                     description: The candidate's log probability.
                     format: float
             description: Candidate for the logprobs token and score.
-        google.ai.generativelanguage.v1.LogprobsResult_TopCandidates:
+        LogprobsResult_TopCandidates:
             type: object
             properties:
                 candidates:
                     type: array
                     items:
-                        $ref: '#/components/schemas/google.ai.generativelanguage.v1.LogprobsResult_Candidate'
+                        $ref: '#/components/schemas/LogprobsResult_Candidate'
                     description: Sorted by log probability in descending order.
             description: Candidates with top log probabilities at each decoding step.
-        google.ai.generativelanguage.v1.ModalityTokenCount:
+        MetadataFilter:
+            required:
+                - key
+                - conditions
+            type: object
+            properties:
+                key:
+                    type: string
+                    description: Required. The key of the metadata to filter on.
+                conditions:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/Condition'
+                    description: |-
+                        Required. The `Condition`s for the given key that will trigger this filter.
+                         Multiple `Condition`s are joined by logical ORs.
+            description: |-
+                User provided filter to limit retrieval based on `Chunk` or `Document` level
+                 metadata values.
+                 Example (genre = drama OR genre = action):
+                   key = "document.custom_metadata.genre"
+                   conditions = [{string_value = "drama", operation = EQUAL},
+                                 {string_value = "action", operation = EQUAL}]
+        ModalityTokenCount:
             type: object
             properties:
                 modality:
@@ -983,7 +1764,18 @@ components:
                     description: Number of tokens.
                     format: int32
             description: Represents token counting info for a single modality.
-        google.ai.generativelanguage.v1.Part:
+        MultiSpeakerVoiceConfig:
+            required:
+                - speakerVoiceConfigs
+            type: object
+            properties:
+                speakerVoiceConfigs:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/SpeakerVoiceConfig'
+                    description: Required. All the enabled speaker voices.
+            description: The configuration for the multi-speaker setup.
+        Part:
             type: object
             properties:
                 text:
@@ -991,14 +1783,50 @@ components:
                     description: Inline text.
                 inlineData:
                     allOf:
-                        - $ref: '#/components/schemas/google.ai.generativelanguage.v1.Blob'
+                        - $ref: '#/components/schemas/Blob'
                     description: Inline media bytes.
+                functionCall:
+                    allOf:
+                        - $ref: '#/components/schemas/FunctionCall'
+                    description: |-
+                        A predicted `FunctionCall` returned from the model that contains
+                         a string representing the `FunctionDeclaration.name` with the
+                         arguments and their values.
+                functionResponse:
+                    allOf:
+                        - $ref: '#/components/schemas/FunctionResponse'
+                    description: |-
+                        The result output of a `FunctionCall` that contains a string
+                         representing the `FunctionDeclaration.name` and a structured JSON
+                         object containing any output from the function is used as context to
+                         the model.
+                fileData:
+                    allOf:
+                        - $ref: '#/components/schemas/FileData'
+                    description: URI based data.
+                executableCode:
+                    allOf:
+                        - $ref: '#/components/schemas/ExecutableCode'
+                    description: Code generated by the model that is meant to be executed.
+                codeExecutionResult:
+                    allOf:
+                        - $ref: '#/components/schemas/CodeExecutionResult'
+                    description: Result of executing the `ExecutableCode`.
                 videoMetadata:
                     allOf:
-                        - $ref: '#/components/schemas/google.ai.generativelanguage.v1.VideoMetadata'
+                        - $ref: '#/components/schemas/VideoMetadata'
                     description: |-
                         Optional. Video metadata. The metadata should only be specified while the
                          video data is presented in inline_data or file_data.
+                thought:
+                    type: boolean
+                    description: Optional. Indicates if the part is thought from the model.
+                thoughtSignature:
+                    type: string
+                    description: |-
+                        Optional. An opaque signature for the thought so it can be reused in
+                         subsequent requests.
+                    format: bytes
             description: |-
                 A datatype containing media that is part of a multi-part `Content` message.
 
@@ -1007,7 +1835,14 @@ components:
 
                  A `Part` must have a fixed IANA MIME type identifying the type and subtype
                  of the media if the `inline_data` field is filled with raw bytes.
-        google.ai.generativelanguage.v1.RetrievalMetadata:
+        PrebuiltVoiceConfig:
+            type: object
+            properties:
+                voiceName:
+                    type: string
+                    description: The name of the preset voice to use.
+            description: The configuration for the prebuilt speaker to use.
+        RetrievalMetadata:
             type: object
             properties:
                 googleSearchDynamicRetrievalScore:
@@ -1020,7 +1855,7 @@ components:
                          compared to the threshold to determine whether to trigger google search.
                     format: float
             description: Metadata related to retrieval in the grounding flow.
-        google.ai.generativelanguage.v1.SafetyRating:
+        SafetyRating:
             required:
                 - category
                 - probability
@@ -1045,7 +1880,7 @@ components:
                  Content is classified for safety across a number of
                  harm categories and the probability of the harm classification is included
                  here.
-        google.ai.generativelanguage.v1.SafetySetting:
+        SafetySetting:
             required:
                 - category
                 - threshold
@@ -1064,7 +1899,126 @@ components:
 
                  Passing a safety setting for a category changes the allowed probability that
                  content is blocked.
-        google.ai.generativelanguage.v1.SearchEntryPoint:
+        Schema:
+            required:
+                - type
+            type: object
+            properties:
+                type:
+                    type: integer
+                    description: Required. Data type.
+                    format: enum
+                format:
+                    type: string
+                    description: |-
+                        Optional. The format of the data. This is used only for primitive
+                         datatypes. Supported formats:
+                          for NUMBER type: float, double
+                          for INTEGER type: int32, int64
+                          for STRING type: enum, date-time
+                title:
+                    type: string
+                    description: Optional. The title of the schema.
+                description:
+                    type: string
+                    description: |-
+                        Optional. A brief description of the parameter. This could contain examples
+                         of use. Parameter description may be formatted as Markdown.
+                nullable:
+                    type: boolean
+                    description: Optional. Indicates if the value may be null.
+                enum:
+                    type: array
+                    items:
+                        type: string
+                    description: |-
+                        Optional. Possible values of the element of Type.STRING with enum format.
+                         For example we can define an Enum Direction as :
+                         {type:STRING, format:enum, enum:["EAST", NORTH", "SOUTH", "WEST"]}
+                items:
+                    allOf:
+                        - $ref: '#/components/schemas/Schema'
+                    description: Optional. Schema of the elements of Type.ARRAY.
+                maxItems:
+                    type: string
+                    description: Optional. Maximum number of the elements for Type.ARRAY.
+                minItems:
+                    type: string
+                    description: Optional. Minimum number of the elements for Type.ARRAY.
+                properties:
+                    type: object
+                    additionalProperties:
+                        $ref: '#/components/schemas/Schema'
+                    description: Optional. Properties of Type.OBJECT.
+                required:
+                    type: array
+                    items:
+                        type: string
+                    description: Optional. Required properties of Type.OBJECT.
+                minProperties:
+                    type: string
+                    description: Optional. Minimum number of the properties for Type.OBJECT.
+                maxProperties:
+                    type: string
+                    description: Optional. Maximum number of the properties for Type.OBJECT.
+                minimum:
+                    type: number
+                    description: |-
+                        Optional. SCHEMA FIELDS FOR TYPE INTEGER and NUMBER
+                         Minimum value of the Type.INTEGER and Type.NUMBER
+                    format: double
+                maximum:
+                    type: number
+                    description: Optional. Maximum value of the Type.INTEGER and Type.NUMBER
+                    format: double
+                minLength:
+                    type: string
+                    description: |-
+                        Optional. SCHEMA FIELDS FOR TYPE STRING
+                         Minimum length of the Type.STRING
+                maxLength:
+                    type: string
+                    description: Optional. Maximum length of the Type.STRING
+                pattern:
+                    type: string
+                    description: |-
+                        Optional. Pattern of the Type.STRING to restrict a string to a regular
+                         expression.
+                example:
+                    allOf:
+                        - $ref: '#/components/schemas/GoogleProtobufValue'
+                    description: |-
+                        Optional. Example of the object. Will only populated when the object is the
+                         root.
+                anyOf:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/Schema'
+                    description: |-
+                        Optional. The value should be validated against any (one or more) of the
+                         subschemas in the list.
+                propertyOrdering:
+                    type: array
+                    items:
+                        type: string
+                    description: |-
+                        Optional. The order of the properties.
+                         Not a standard field in open api spec. Used to determine the order of the
+                         properties in the response.
+                default:
+                    allOf:
+                        - $ref: '#/components/schemas/GoogleProtobufValue'
+                    description: |-
+                        Optional. Default value of the field. Per JSON Schema, this field is
+                         intended for documentation generators and doesn't affect validation. Thus
+                         it's included here and ignored so that developers who send schemas with a
+                         `default` field don't get unknown-field errors.
+            description: |-
+                The `Schema` object allows the definition of input and output data types.
+                 These types can be objects, but also primitives and arrays.
+                 Represents a select subset of an [OpenAPI 3.0 schema
+                 object](https://spec.openapis.org/oas/v3.0.3#schema).
+        SearchEntryPoint:
             type: object
             properties:
                 renderedContent:
@@ -1079,7 +2033,7 @@ components:
                          url> tuple.
                     format: bytes
             description: Google search entry point.
-        google.ai.generativelanguage.v1.Segment:
+        Segment:
             type: object
             properties:
                 partIndex:
@@ -1106,16 +2060,192 @@ components:
                     type: string
                     description: Output only. The text corresponding to the segment from the response.
             description: Segment of the content.
-        google.ai.generativelanguage.v1.UrlContextMetadata:
+        SemanticRetrieverConfig:
+            required:
+                - source
+                - query
+            type: object
+            properties:
+                source:
+                    type: string
+                    description: |-
+                        Required. Name of the resource for retrieval. Example: `corpora/123` or
+                         `corpora/123/documents/abc`.
+                query:
+                    allOf:
+                        - $ref: '#/components/schemas/Content'
+                    description: |-
+                        Required. Query to use for matching `Chunk`s in the given resource by
+                         similarity.
+                metadataFilters:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/MetadataFilter'
+                    description: |-
+                        Optional. Filters for selecting `Document`s and/or `Chunk`s from the
+                         resource.
+                maxChunksCount:
+                    type: integer
+                    description: Optional. Maximum number of relevant `Chunk`s to retrieve.
+                    format: int32
+                minimumRelevanceScore:
+                    type: number
+                    description: Optional. Minimum relevance score for retrieved relevant `Chunk`s.
+                    format: float
+            description: |-
+                Configuration for retrieving grounding content from a `Corpus` or
+                 `Document` created using the Semantic Retriever API.
+        SpeakerVoiceConfig:
+            required:
+                - speaker
+                - voiceConfig
+            type: object
+            properties:
+                speaker:
+                    type: string
+                    description: |-
+                        Required. The name of the speaker to use. Should be the same as in the
+                         prompt.
+                voiceConfig:
+                    allOf:
+                        - $ref: '#/components/schemas/VoiceConfig'
+                    description: Required. The configuration for the voice to use.
+            description: The configuration for a single speaker in a multi speaker setup.
+        SpeechConfig:
+            type: object
+            properties:
+                voiceConfig:
+                    allOf:
+                        - $ref: '#/components/schemas/VoiceConfig'
+                    description: The configuration in case of single-voice output.
+                multiSpeakerVoiceConfig:
+                    allOf:
+                        - $ref: '#/components/schemas/MultiSpeakerVoiceConfig'
+                    description: |-
+                        Optional. The configuration for the multi-speaker setup.
+                         It is mutually exclusive with the voice_config field.
+                languageCode:
+                    type: string
+                    description: |-
+                        Optional. Language code (in BCP 47 format, e.g. "en-US") for speech
+                         synthesis.
+
+                         Valid values are: de-DE, en-AU, en-GB, en-IN, en-US, es-US, fr-FR, hi-IN,
+                         pt-BR, ar-XA, es-ES, fr-CA, id-ID, it-IT, ja-JP, tr-TR, vi-VN, bn-IN,
+                         gu-IN, kn-IN, ml-IN, mr-IN, ta-IN, te-IN, nl-NL, ko-KR, cmn-CN, pl-PL,
+                         ru-RU, and th-TH.
+            description: The speech generation config.
+        Status:
+            type: object
+            properties:
+                code:
+                    type: integer
+                    description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
+                    format: int32
+                message:
+                    type: string
+                    description: A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.
+                details:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/GoogleProtobufAny'
+                    description: A list of messages that carry the error details.  There is a common set of message types for APIs to use.
+            description: 'The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors).'
+        ThinkingConfig:
+            type: object
+            properties:
+                includeThoughts:
+                    type: boolean
+                    description: |-
+                        Indicates whether to include thoughts in the response.
+                         If true, thoughts are returned only when available.
+                thinkingBudget:
+                    type: integer
+                    description: The number of thoughts tokens that the model should generate.
+                    format: int32
+            description: Config for thinking features.
+        Tool:
+            type: object
+            properties:
+                functionDeclarations:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/FunctionDeclaration'
+                    description: |-
+                        Optional. A list of `FunctionDeclarations` available to the model that can
+                         be used for function calling.
+
+                         The model or system does not execute the function. Instead the defined
+                         function may be returned as a
+                         [FunctionCall][google.ai.generativelanguage.v1beta.Part.function_call] with
+                         arguments to the client side for execution. The model may decide to call a
+                         subset of these functions by populating
+                         [FunctionCall][google.ai.generativelanguage.v1beta.Part.function_call] in
+                         the response. The next conversation turn may contain a
+                         [FunctionResponse][google.ai.generativelanguage.v1beta.Part.function_response]
+                         with the [Content.role][google.ai.generativelanguage.v1beta.Content.role]
+                         "function" generation context for the next model turn.
+                googleSearchRetrieval:
+                    allOf:
+                        - $ref: '#/components/schemas/GoogleSearchRetrieval'
+                    description: Optional. Retrieval tool that is powered by Google search.
+                codeExecution:
+                    allOf:
+                        - $ref: '#/components/schemas/CodeExecution'
+                    description: Optional. Enables the model to execute code as part of generation.
+                googleSearch:
+                    allOf:
+                        - $ref: '#/components/schemas/Tool_GoogleSearch'
+                    description: |-
+                        Optional. GoogleSearch tool type.
+                         Tool to support Google Search in Model. Powered by Google.
+                urlContext:
+                    allOf:
+                        - $ref: '#/components/schemas/UrlContext'
+                    description: Optional. Tool to support URL context retrieval.
+            description: |-
+                Tool details that the model may use to generate response.
+
+                 A `Tool` is a piece of code that enables the system to interact with
+                 external systems to perform an action, or set of actions, outside of
+                 knowledge and scope of the model.
+        ToolConfig:
+            type: object
+            properties:
+                functionCallingConfig:
+                    allOf:
+                        - $ref: '#/components/schemas/FunctionCallingConfig'
+                    description: Optional. Function calling config.
+            description: |-
+                The Tool configuration containing parameters for specifying `Tool` use
+                 in the request.
+        Tool_GoogleSearch:
+            type: object
+            properties:
+                timeRangeFilter:
+                    allOf:
+                        - $ref: '#/components/schemas/Interval'
+                    description: |-
+                        Optional. Filter search results to a specific time range.
+                         If customers set a start time, they must set an end time (and vice
+                         versa).
+            description: |-
+                GoogleSearch tool type.
+                 Tool to support Google Search in Model. Powered by Google.
+        UrlContext:
+            type: object
+            properties: {}
+            description: Tool to support URL context retrieval.
+        UrlContextMetadata:
             type: object
             properties:
                 urlMetadata:
                     type: array
                     items:
-                        $ref: '#/components/schemas/google.ai.generativelanguage.v1.UrlMetadata'
+                        $ref: '#/components/schemas/UrlMetadata'
                     description: List of url context.
             description: Metadata related to url context retrieval tool.
-        google.ai.generativelanguage.v1.UrlMetadata:
+        UrlMetadata:
             type: object
             properties:
                 retrievedUrl:
@@ -1126,7 +2256,7 @@ components:
                     description: Status of the url retrieval.
                     format: enum
             description: Context of the a single url retrieval.
-        google.ai.generativelanguage.v1.VideoMetadata:
+        VideoMetadata:
             type: object
             properties:
                 startOffset:
@@ -1144,5 +2274,20 @@ components:
                          the default value will be 1.0. The fps range is (0.0, 24.0].
                     format: double
             description: Metadata describes the input video content.
+        VoiceConfig:
+            type: object
+            properties:
+                prebuiltVoiceConfig:
+                    allOf:
+                        - $ref: '#/components/schemas/PrebuiltVoiceConfig'
+                    description: The configuration for the prebuilt voice to use.
+            description: The configuration for the voice to use.
+    securitySchemes:
+        ApiKeyAuth:
+            type: apiKey
+            in: header
+            name: x-goog-api-key
+            description: "Gemini API Key"
+
 tags:
     - name: GenerativeService
